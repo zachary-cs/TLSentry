@@ -1901,3 +1901,6 @@ venv/lib/python3.10/site-packages/werkzeug/wrappers/response.py
 venv/lib/python3.10/site-packages/werkzeug/wrappers/__pycache__/__init__.cpython-310.pyc
 venv/lib/python3.10/site-packages/werkzeug/wrappers/__pycache__/request.cpython-310.pyc
 venv/lib/python3.10/site-packages/werkzeug/wrappers/__pycache__/response.cpython-310.pyc
+__pycache__/app.cpython-310.pyc
+scanner/__pycache__/Scanner.cpython-310.pyc
+data/__pycache__/Structs.cpython-310.pyc
