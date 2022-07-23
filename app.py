@@ -1,8 +1,9 @@
 from scanner import Scanner
 from data import Structs
+from flask import Flask
 
+app = Flask(__name__)
 
-def Main():
-    print('Running the code!')
-
-Main()
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
