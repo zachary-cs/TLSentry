@@ -1,5 +1,12 @@
-FROM python:3
+FROM python:3.10-bullseye
 
-run python3 pip install -t requirements.txt
+WORKDIR /app
 
-run python3 main.py
+COPY requirements.txt requirements.txt
+COPY data data
+COPY scanner scanner
+COPY app.py app.py
+
+run pip3 install -r requirements.txt
+
+CMD  [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
