@@ -4,9 +4,6 @@ class Certificate():
     # Public Vars go here
     Common_Name = ""
 
-    Valid_From = date()
-    Valid_Until = date()
-
     def __init__(self, cn):
         # TODO - Add more init vars here
         self.Common_Name = cn
@@ -17,7 +14,6 @@ class Endpoint():
     URL = ""
     Port = ""
     IP = ""
-    Certificate = Certificate()
 
     def __init__(self, url, port, frequency):
         self.URL = url

@@ -6,7 +6,7 @@ import idna
 
 class Scanner():
     # Vars go here
-    self.endpoints = []
+    Endpoints = []
 
     def __init__(self):
         sock = socket()
