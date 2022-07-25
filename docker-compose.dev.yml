@@ -2,11 +2,14 @@ version: '3.8'
 
 services:
  web:
+ # Build the dockerfile each run
   build:
    context: .
   ports:
   - 8000:5000
   volumes:
+  # Makes a volume in the CT /app to local dir ./
+  # This enables my code to update the app code in the container
   - ./:/app
   env_file: .env
 
