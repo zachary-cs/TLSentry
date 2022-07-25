@@ -11,6 +11,7 @@ class SSL_Scanner():
     
     def __init__(self, hostname, port):
         self.Endpoint = None
+        self.Certificate = None
         self.check_certificate(hostname, port)
         
     def verify_cert(self, cert, hostname):
@@ -39,7 +40,16 @@ class SSL_Scanner():
         sock_ssl.close()
         sock.close()
 
-        self.Endpoint. (cert=crypto_cert, peername=peername, hostname=hostname)
+        self.Certificate = Structs.Certificate(
+                                    hostname,
+                                    self.get_common_name(crypto_cert), 
+                                    peername,
+                                    self.get_alt_names(crypto_cert),
+                                    self.get_issuer(crypto_cert),
+                                    crypto_cert.not_valid_before,
+                                    crypto_cert.not_valid_after
+                                )
+
 
     def get_alt_names(self, cert):
         try:
@@ -61,28 +71,6 @@ class SSL_Scanner():
             return names[0].value
         except x509.ExtensionNotFound:
             return None
-
-
-    def save_basic_info(self, hostinfo):
-        
-        
-        
-        s = '''» {hostname} « … {peername}
-        \tcommonName: {commonname}
-        \tSAN: {SAN}
-        \tissuer: {issuer}
-        \tnotBefore: {notbefore}
-        \tnotAfter:  {notafter}
-        '''.format(
-                hostname=hostinfo.hostname,
-                peername=hostinfo.peername,
-                commonname=self.get_common_name(hostinfo.cert),
-                SAN=self.get_alt_names(hostinfo.cert),
-                issuer=self.get_issuer(hostinfo.cert),
-                notbefore=hostinfo.cert.not_valid_before,
-                notafter=hostinfo.cert.not_valid_after
-        )
-        return s
 
     def check_it_out(self, hostname, port):
         hostinfo = get_certificate(hostname, port)

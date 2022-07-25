@@ -28,8 +28,7 @@ def json_test():
 @app.get("/scan")
 def scan_urls():
   scanner = network.SSL_Scanner("www.google.com", 443)
-  details = scanner.get_certificate()
-  return json.dumps(scanner.print_basic_info(details))
+  return json.dumps(scanner.Certificate.GetDict())
 
 
 
