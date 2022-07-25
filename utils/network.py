@@ -4,14 +4,14 @@ from cryptography.x509.oid import NameOID
 from socket import socket
 from collections import namedtuple
 import idna
+from data import Structs
 
 
-class Scanner():
-    # Vars go here
-    Endpoints = []
-
-    def __init__(self):
-        self.sock = socket()
+class SSL_Scanner():    
+    
+    def __init__(self, hostname, port):
+        self.Endpoint = None
+        self.check_certificate(hostname, port)
         
     def verify_cert(self, cert, hostname):
         # verify notAfter/notBefore, CA trusted, servername/sni/hostname
@@ -19,16 +19,18 @@ class Scanner():
         # service_identity.pyopenssl.verify_hostname(client_ssl, hostname)
         # issuer
 
-    def get_certificate(self, hostname, port):
+
+    def check_certificate(self, hostname, port):
         hostname_idna = idna.encode(hostname)
 
-        self.sock.connect((hostname, port))
-        peername = self.sock.getpeername()
-        ctx = SSL.Context(SSL.SSLv23_METHOD) # most compatible
+        sock = socket()
+        sock.connect((hostname, port))
+        peername = sock.getpeername()
+        ctx = SSL.Context(SSL.SSLv23_METHOD)
         ctx.check_hostname = False
         ctx.verify_mode = SSL.VERIFY_NONE
 
-        sock_ssl = SSL.Connection(ctx, self.sock)
+        sock_ssl = SSL.Connection(ctx, sock)
         sock_ssl.set_connect_state()
         sock_ssl.set_tlsext_host_name(hostname_idna)
         sock_ssl.do_handshake()
@@ -37,7 +39,7 @@ class Scanner():
         sock_ssl.close()
         sock.close()
 
-        return HostInfo(cert=crypto_cert, peername=peername, hostname=hostname)
+        self.Endpoint. (cert=crypto_cert, peername=peername, hostname=hostname)
 
     def get_alt_names(self, cert):
         try:
@@ -61,7 +63,10 @@ class Scanner():
             return None
 
 
-    def print_basic_info(self, hostinfo):
+    def save_basic_info(self, hostinfo):
+        
+        
+        
         s = '''» {hostname} « … {peername}
         \tcommonName: {commonname}
         \tSAN: {SAN}
@@ -71,13 +76,13 @@ class Scanner():
         '''.format(
                 hostname=hostinfo.hostname,
                 peername=hostinfo.peername,
-                commonname=get_common_name(hostinfo.cert),
-                SAN=get_alt_names(hostinfo.cert),
-                issuer=get_issuer(hostinfo.cert),
+                commonname=self.get_common_name(hostinfo.cert),
+                SAN=self.get_alt_names(hostinfo.cert),
+                issuer=self.get_issuer(hostinfo.cert),
                 notbefore=hostinfo.cert.not_valid_before,
                 notafter=hostinfo.cert.not_valid_after
         )
-        print(s)
+        return s
 
     def check_it_out(self, hostname, port):
         hostinfo = get_certificate(hostname, port)
