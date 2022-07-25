@@ -1,4 +1,4 @@
-from scanner import Scanner
+from utils import network
 from data import Structs
 from flask import Flask
 from flask import render_template
@@ -9,15 +9,42 @@ import json
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.get("/")
 def index(name=None):
     return render_template('index.j2')
 
 # Basic Var capture - GET on /hello/
+@app.route("/hello/")
 @app.route("/hello/<name>")
 def home(name):
     return render_template('hello.j2',name=name)
 
+# Testing out returning JSON from a URL
+@app.route("/json")
+def json_test():
+  return json.dumps({"Test" : 50})
+
+
+@app.get("/scan")
+def scan_urls():
+  scanner = network.SSL_Scanner("www.google.com", 443)
+  details = scanner.get_certificate()
+  return json.dumps(scanner.print_basic_info(details))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================== SQL Tutorial Stuff =========================
 
 @app.route('/widgets')
 def get_widgets():
