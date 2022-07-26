@@ -2,6 +2,7 @@ from utils import network
 from data import Structs
 from flask import Flask
 from flask import render_template
+from flask import request
 import mysql.connector
 import json
 
@@ -24,12 +25,19 @@ def home(name):
 def json_test():
   return json.dumps({"Test" : 50})
 
-
-@app.get("/scan")
+# Testing Route
+@app.route('/scan', methods=['POST','GET'])
 def scan_urls():
-  scanner = network.SSL_Scanner("www.google.com", 443)
-  return json.dumps(scanner.Certificate.GetDict())
+  if request.method == 'POST':
+    # TODO
+  else:
+    scanner = network.SSL_Scanner("www.google.com", 443)
+    # Get Dict object of Certificate
+    cert_dict = scanner.Certificate.GetDict()
+    return json.dumps(cert_dict)
 
+
+@app.post("/scan")
 
 
 
