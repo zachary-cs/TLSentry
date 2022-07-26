@@ -12,16 +12,16 @@ class SSL_Scanner():
     def __init__(self, hostname, port):
         self.Endpoint = None
         self.Certificate = None
-        self.check_certificate(hostname, port)
+        self.Check_Certificate(hostname, port)
         
-    def verify_cert(self, hostname):
+    def Verify_Cert(self, hostname):
         # verify notAfter/notBefore, CA trusted, servername/sni/hostname
         cert.has_expired()
         # service_identity.pyopenssl.verify_hostname(client_ssl, hostname)
         # issuer
 
 
-    def check_certificate(self, hostname, port):
+    def Check_Certificate(self, hostname, port):
         idna_hostname = idna.encode(hostname)
 
         # Setup socket connection
@@ -45,30 +45,30 @@ class SSL_Scanner():
         # Setup the Certificate Object
         self.Certificate = Structs.Certificate(
                                     hostname,
-                                    self.get_common_name(crypto_cert), 
+                                    self.Get_Common_Name(crypto_cert), 
                                     peername,
-                                    self.get_alt_names(crypto_cert),
-                                    self.get_issuer(crypto_cert),
+                                    self.Get_Alt_Names(crypto_cert),
+                                    self.Get_Issuer(crypto_cert),
                                     crypto_cert.not_valid_before,
                                     crypto_cert.not_valid_after
                                 )
 
     # Helper Functions
-    def get_alt_names(self, cert):
+    def Get_Alt_Names(self, cert):
         try:
             ext = cert.extensions.get_extension_for_class(x509.SubjectAlternativeName)
             return ext.value.get_values_for_type(x509.DNSName)
         except x509.ExtensionNotFound:
             return None
 
-    def get_common_name(self, cert):
+    def Get_Common_Name(self, cert):
         try:
             names = cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)
             return names[0].value
         except x509.ExtensionNotFound:
             return None
 
-    def get_issuer(self, cert):
+    def Get_Issuer(self, cert):
         try:
             names = cert.issuer.get_attributes_for_oid(NameOID.COMMON_NAME)
             return names[0].value
