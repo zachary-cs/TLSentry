@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 
 @app.get("/")
+@app.get("/index.html")
 def index(name=None):
   page_data = {
     'title' : "TLSentry - Endpoint SSL Monitoring",
@@ -24,12 +25,11 @@ def index(name=None):
 def home(name):
   return render_template('hello.j2',name=name)
 
-# Testing out returning JSON from a URL
-@app.route("/json")
-def json_test():
-  return json.dumps({"Test" : 50})
 
-# Testing Route
+
+
+
+# TODO Scanning API
 @app.route('/scan', methods=['POST','GET'])
 def scan_urls():
   if request.method == 'POST':
@@ -44,6 +44,27 @@ def scan_urls():
 
 # Routing for Static files, answered by:
 # https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website
+
+
+
+
+
+
+
+
+
+
+
+# ======================== Code Testing =========================
+
+
+# Testing out returning JSON from a URL
+@app.route("/json")
+def json_test():
+  return json.dumps({"Test" : 50})
+
+
+
 
 
 # ======================== SQL Tutorial Stuff =========================
