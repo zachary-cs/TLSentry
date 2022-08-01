@@ -15,7 +15,7 @@ snips = Blueprint('snips', __name__) # __name__ is essentially the main() of thi
 @snips.route("/hello/")
 @snips.route("/hello/<name>")
 def hello(name):
-  return render_template('hello.j2',name=name)
+  return render_template('hello.html',name=name)
 
 
 
