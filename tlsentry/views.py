@@ -1,12 +1,11 @@
-from utils import network
-from data import Structs
+from .utils import network
+from .data import Structs
 from flask import Flask
 from flask import render_template
 from flask import request
 from flask import Blueprint
 import mysql.connector
 import json
-
 
 views = Blueprint('home', __name__)
 

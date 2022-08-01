@@ -4,7 +4,7 @@ from cryptography.x509.oid import NameOID
 from socket import socket
 from collections import namedtuple
 import idna
-from data import Structs
+
 
 
 class SSL_Scanner():    
