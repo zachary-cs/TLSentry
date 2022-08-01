@@ -16,7 +16,7 @@ def index(name=None):
     'title' : "TLSentry - Endpoint SSL Monitoring",
     'test' : 123
   }
-  return render_template('index.html', title=page_data["title"])
+  return render_template('index.j2', title=page_data["title"])
 
 
 

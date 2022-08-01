@@ -1,8 +1,17 @@
-{% extends "base_parent.html" %}
+{# 
+   Extends from parent template 
+#}
+{% extends "base_parent.j2" %}
 
 
+{# Title from parent template relaced by this child one#}
+{% block title %}
+    {{ title }}
+{% endblock title %}
 
-    <!-- Page Wrapper -->
+{% block content_body %}
+
+<!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -732,6 +741,6 @@
     <script src="static/js/demo/chart-area-demo.js"></script>
     <script src="static/js/demo/chart-pie-demo.js"></script>
 
-</body>
 
-</html>
+{% endblock content_body %}
+    
