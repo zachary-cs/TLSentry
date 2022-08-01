@@ -3,15 +3,15 @@ from data import Structs
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import Blueprint
 import mysql.connector
 import json
 
 
-app = Flask(__name__)
+views = Blueprint('home', __name__)
 
-
-@app.get("/")
-@app.get("/index.html")
+@views.get("/")
+@views.get("/index.html")
 def index(name=None):
   page_data = {
     'title' : "TLSentry - Endpoint SSL Monitoring",
@@ -20,8 +20,8 @@ def index(name=None):
   return render_template('index.j2', title=page_data["title"])
 
 # Basic Var capture - GET on /hello/
-@app.route("/hello/")
-@app.route("/hello/<name>")
+@views.route("/hello/")
+@views.route("/hello/<name>")
 def home(name):
   return render_template('hello.j2',name=name)
 
@@ -30,7 +30,7 @@ def home(name):
 
 
 # TODO Scanning API
-@app.route('/scan', methods=['POST','GET'])
+@views.route('/scan', methods=['POST','GET'])
 def scan_urls():
   if request.method == 'POST':
     # TODO
@@ -59,7 +59,7 @@ def scan_urls():
 
 
 # Testing out returning JSON from a URL
-@app.route("/json")
+@views.route("/json")
 def json_test():
   return json.dumps({"Test" : 50})
 
@@ -69,7 +69,7 @@ def json_test():
 
 # ======================== SQL Tutorial Stuff =========================
 
-@app.route('/widgets')
+@views.route('/widgets')
 def get_widgets():
   mydb = mysql.connector.connect(
     host="mysqldb",
@@ -93,7 +93,7 @@ def get_widgets():
 
   return json.dumps(json_data)
 
-@app.route('/initdb')
+@views.route('/initdb')
 def db_init():
   mydb = mysql.connector.connect(
     host="mysqldb",
