@@ -6,10 +6,10 @@ def create_app():
 
 
     # Define blueprint views here
-    from .views import views
+    from .home import home
 
 
     # Register them with the app
-    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(home, url_prefix='/')
 
     return app

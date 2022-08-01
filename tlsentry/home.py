@@ -8,10 +8,10 @@ import mysql.connector
 import json
 
 # Define this python file as the blueprint 
-views = Blueprint('home', __name__) # __name__ is essentially the main() of this python file
+home = Blueprint('home', __name__) # __name__ is essentially the main() of this python file
 
-@views.get("/")
-@views.get("/index.html")
+@home.get("/")
+@home.get("/index.html")
 def index(name=None):
   page_data = {
     'title' : "TLSentry - Endpoint SSL Monitoring",
@@ -20,9 +20,9 @@ def index(name=None):
   return render_template('index.j2', title=page_data["title"])
 
 # Basic Var capture - GET on /hello/
-@views.route("/hello/")
-@views.route("/hello/<name>")
-def home(name):
+@home.route("/hello/")
+@home.route("/hello/<name>")
+def hello(name):
   return render_template('hello.j2',name=name)
 
 
@@ -30,7 +30,7 @@ def home(name):
 
 
 # TODO Scanning API
-@views.route('/scan', methods=['POST','GET'])
+@home.route('/scan', methods=['POST','GET'])
 def scan_urls():
   if request.method == 'POST':
     # TODO
@@ -59,7 +59,7 @@ def scan_urls():
 
 
 # Testing out returning JSON from a URL
-@views.route("/json")
+@home.route("/json")
 def json_test():
   return json.dumps({"Test" : 50})
 
@@ -69,7 +69,7 @@ def json_test():
 
 # ======================== SQL Tutorial Stuff =========================
 
-@views.route('/widgets')
+@home.route('/widgets')
 def get_widgets():
   mydb = mysql.connector.connect(
     host="mysqldb",
@@ -93,7 +93,7 @@ def get_widgets():
 
   return json.dumps(json_data)
 
-@views.route('/initdb')
+@home.route('/initdb')
 def db_init():
   mydb = mysql.connector.connect(
     host="mysqldb",
