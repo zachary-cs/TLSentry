@@ -14,9 +14,9 @@ home = Blueprint('home', __name__) # __name__ is essentially the main() of this 
 def index(name=None):
   page_data = {
     'title' : "TLSentry - Endpoint SSL Monitoring",
-    'test' : 123
+    'app_version' : 0.1
   }
-  return render_template('home_index.j2', title=page_data["title"])
+  return render_template('home_index.j2', title=page_data["title"], app_version=page_data["app_version"])
 
 
 
