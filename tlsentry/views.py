@@ -7,7 +7,8 @@ from flask import Blueprint
 import mysql.connector
 import json
 
-views = Blueprint('home', __name__)
+# Define this python file as the blueprint 
+views = Blueprint('home', __name__) # __name__ is essentially the main() of this python file
 
 @views.get("/")
 @views.get("/index.html")
