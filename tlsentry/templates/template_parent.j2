@@ -24,11 +24,8 @@
 
 <body id="page-top">
     {#  Sidebar Nav #}
-    {% block navigation %}    
-    {% endblock navigation %}
-
-    {#  Top Nav Bar - Notications, Current User, etc #}
-   
+    {% block navigation required %}    
+    {% endblock navigation %}   
 
     {#  Page Contents  #}
     {% block child_body required %}    
