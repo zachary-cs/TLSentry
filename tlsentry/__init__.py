@@ -7,9 +7,10 @@ def create_app():
 
     # Define blueprint views here
     from .home import home
-
+    from .snippets import snips
 
     # Register them with the app
     app.register_blueprint(home, url_prefix='/')
+    app.register_blueprint(snips, url_prefix='/snips')
 
     return app
