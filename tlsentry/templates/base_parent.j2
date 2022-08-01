@@ -23,8 +23,16 @@
 </head>
 
 <body id="page-top">
-    {% block child_body required %}
-    
+    {#  Sidebar Nav #}
+    {% block sidebar_nav %}    
+    {% endblock sidebar_nav %}
+
+    {#  Top Nav Bar - Notications, Current User, etc #}
+    {% block topbar_nav %}    
+    {% endblock topbar_nav %}
+
+    {#  Page Contents  #}
+    {% block child_body required %}    
     {% endblock child_body %}
 </body>
 
