@@ -10,11 +10,13 @@ def create_app():
     from .snippets import snips
     from .scanner import scanner
     from .certs import certs
+    from .endpoints import endpoints
 
     # Register them with the app
     app.register_blueprint(home, url_prefix='/')
     app.register_blueprint(snips, url_prefix='/snips')
     app.register_blueprint(scanner, url_prefix='/scanner')
     app.register_blueprint(certs, url_prefix='/certs')
+    app.register_blueprint(endpoints, url_prefix='/endpoints')
 
     return app

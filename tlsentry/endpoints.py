@@ -7,11 +7,11 @@ from .data import Structs
 
 
 # Define this python file as the blueprint 
-certs = Blueprint('certs', __name__) # __name__ is essentially the main() of this python file
+endpoints = Blueprint('endpoints', __name__) # __name__ is essentially the main() of this python file
 
-# Index of Certs
-@certs.route("/")
-def hello(name):
-  return render_template('certs_index.j2', )
+# Index of endpoints
+@endpoints.route("/")
+def index():
+  return render_template('endpoints_index.j2', )
 
 
