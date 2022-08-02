@@ -12,6 +12,7 @@ certs = Blueprint('certs', __name__) # __name__ is essentially the main() of thi
 # Index of Certs
 @certs.route("/")
 def index():
-  return render_template('certs_index.j2', )
+  pagedata = Structs.PageData()
+  return render_template('certs_index.j2', pagedata=pagedata)
 
 

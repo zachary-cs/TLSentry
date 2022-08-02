@@ -10,7 +10,6 @@ import json
 home = Blueprint('home', __name__) # __name__ is essentially the main() of this python file
 
 @home.get("/")
-@home.get("/index.html")
 def index(name=None):
-  data = Structs.PageData()
-  return render_template('home_index.j2', title=data.title, app_version=data.app_version)
+  pagedata = Structs.PageData()
+  return render_template('home_index.j2', pagedata=pagedata)
