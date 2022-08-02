@@ -15,7 +15,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">TLSentry <sup>{{ app_version }}</sup></div>
+        <div class="sidebar-brand-text mx-3">TLSentry <sup>{{ pagedata.app_version }}</sup></div>
     </a>
 
     <!-- Divider -->
@@ -23,7 +23,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ url_for('home.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -38,7 +38,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="certs">
+        <a class="nav-link" href="{{ url_for('certs.index') }}">
             <i class="fas fa-fw fa-certificate"></i> 
             <span>SSL Certificates</span>
         </a>
