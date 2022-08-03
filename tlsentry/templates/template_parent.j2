@@ -30,21 +30,33 @@
     {% block sidenav required %}    
     {% endblock sidenav %}   
 
-    {% block topnav required %}
-    
-    {% endblock topnav %}
 
-    {#  Page Contents  #}
-    {% block child_body required %}    
-    {% endblock child_body %}
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+            <!-- Main Content -->
+            <div id="content">
+
+
+            {% block topnav required %}
+            {% endblock topnav %}
+
+            {#  Page Contents  #}
+            {% block child_body required %}    
+            {% endblock child_body %}
+
+
+            </div>
+            <!-- End of Main Content -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -82,9 +94,6 @@
     <!-- Page level custom scripts -->
     <script src="static/js/demo/chart-area-demo.js"></script>
     <script src="static/js/demo/chart-pie-demo.js"></script>
-
-
-
 
 </body>
 
