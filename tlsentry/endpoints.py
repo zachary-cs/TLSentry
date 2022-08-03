@@ -12,6 +12,7 @@ endpoints = Blueprint('endpoints', __name__) # __name__ is essentially the main(
 # Index of endpoints
 @endpoints.route("/")
 def index():
-  return render_template('endpoints_index.j2', )
+  page_data = Structs.PageData()
+  return render_template('endpoints_index.j2', pagedata=page_data)
 
 
