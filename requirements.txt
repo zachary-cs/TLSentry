@@ -1,4 +1,6 @@
 flask
+flask-mysql
 pyopenssl
 idna
 mysql-connector-python
+
