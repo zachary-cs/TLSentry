@@ -11,23 +11,23 @@ class MySQL_Connector():
       host="mysqldb",
       user="root",
       password="p@ssw0rd1",
-      database="inventory"
+      database="tlsentry"
     )
   
 
-  def Run_Query(string):      
-    self.cursor = mydb.cursor()
+  def Run_Query(self, string):      
+    self.cursor = self.mydb.cursor()
 
+    # Run the SQL passed into this function
+    self.cursor.execute(string)
 
-    self.cursor.execute("SELECT * FROM widgets")
+    row_headers=[x[0] for x in self.cursor.description] #this will extract row headers
 
-    row_headers=[x[0] for x in cursor.description] #this will extract row headers
-
-    self.results = cursor.fetchall()
+    self.results = self.cursor.fetchall()
     self.json_data=[]
     for result in self.results:
       self.json_data.append(dict(zip(row_headers,result)))
 
     self.cursor.close()
 
-    return json.dumps(self.json_data)
+    return row_headers, json.dumps(self.json_data, default=str)

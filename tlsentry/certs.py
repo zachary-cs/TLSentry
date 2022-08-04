@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 from flask import Blueprint
 from .utils import network
+from .utils import db_connector
 from .data import Structs
 
 
@@ -13,6 +14,11 @@ certs = Blueprint('certs', __name__) # __name__ is essentially the main() of thi
 @certs.route("/")
 def index():
   pagedata = Structs.PageData()
-  return render_template('certs_index.j2', pagedata=pagedata)
+
+  db_conn = db_connector.MySQL_Connector()
+
+  q_headers, q_results = db_conn.Run_Query("Select * from certificates")
+
+  return render_template('certs_index.j2', pagedata=pagedata, headers=q_headers, results=q_results)
 
 
