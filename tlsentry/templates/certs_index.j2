@@ -54,10 +54,10 @@
                                                 </tr>
                                             </thead>                                            
                                             <tbody>                                            
-                                                {% for r in results %}
-                                                    <tr>
-                                                    {% for h in headers %}                                                    
-                                                        <td>r[h]</td>                                                      
+                                                {% for res in results %}
+                                                    <tr> 
+                                                    {% for key, val in res.items() %}                                                 
+                                                        <td>{{ val }}</td> 
                                                     {% endfor %}
                                                     </tr>    
                                                 {% endfor %}
@@ -67,7 +67,10 @@
 
                                         <span>
                                         Debugging:
+                                        Results:
                                         {{ results }}
+                                        Result values
+                                        {{ results.values }}
                                         </span>
                                     </div>
                                 </div>
