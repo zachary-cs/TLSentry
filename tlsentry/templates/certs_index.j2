@@ -91,6 +91,9 @@
     
 
  {% block custom_scripts %}    
+ <!-- Page level plugins -->
+    <script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <!-- Page level custom scripts -->
 <script src="{{ url_for('static', filename='js/datatables-activate.js') }}"></script>
 {% endblock custom_scripts %}
