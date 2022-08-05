@@ -84,9 +84,13 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
-    <!-- Page level custom scripts -->
-    <script src="{{ url_for('static', filename='js/datatables-activate.js') }}"></script>
+   
+    
 
 {% endblock child_body %}
     
+
+ {% block custom_scripts %}    
+<!-- Page level custom scripts -->
+<script src="{{ url_for('static', filename='js/datatables-activate.js') }}"></script>
+{% endblock custom_scripts %}
