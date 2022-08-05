@@ -23,7 +23,8 @@ def index():
   return render_template(
                           'certs_index.j2', 
                           pagedata=pagedata, 
-                          sub_title= "Certificates",
+                          sub_title="Certificates",
+                          table_title="Discovered SSL Certificates",
                           headers=q_headers, 
                           results=q_results
                         )
