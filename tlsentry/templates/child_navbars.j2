@@ -52,10 +52,10 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="/static/utilities-color.html">Colors</a>
-                    <a class="collapse-item" href="/static/utilities-border.html">Borders</a>
-                    <a class="collapse-item" href="/static/utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="/static/utilities-other.html">Other</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='utilities-color.html') }}">Colors</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='utilities-border.html') }}">Borders</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='utilities-animation.html') }}">Animations</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='utilities-other.html') }}">Other</a>
                 </div>
             </div>
         </li>
@@ -78,27 +78,27 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="/static/login.html">Login</a>
-                    <a class="collapse-item" href="/static/register.html">Register</a>
-                    <a class="collapse-item" href="/static/forgot-password.html">Forgot Password</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='login.html') }}">Login</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='register.html') }}">Register</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='forgot-password.html') }}">Forgot Password</a>
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="/static/404.html">404 Page</a>
-                    <a class="collapse-item" href="/static/blank.html">Blank Page</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='404.html') }}">404 Page</a>
+                    <a class="collapse-item" href="{{ url_for('static', filename='blank.html') }}">Blank Page</a>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="/static/charts.html">
+            <a class="nav-link" href="{{ url_for('static', filename='charts.html') }}">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Charts</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="/static/tables.html">
+            <a class="nav-link" href="{{ url_for('static', filename='tables.html') }}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Tables</span></a>
         </li>
@@ -114,7 +114,7 @@
         <!-- Sidebar Message -->
         {% block sidebar_message %}
             <div class="sidebar-card d-none d-lg-flex">
-            <img class="sidebar-card-illustration mb-2" src="static/img/undraw_rocket.svg" alt="...">
+            <img class="sidebar-card-illustration mb-2" src="{{ url_for('static', filename='img/undraw_rocket.svg') }}" alt="...">
             <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
             <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
         </div>
@@ -245,7 +245,7 @@
                 </h6>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="static/img/undraw_profile_1.svg"
+                        <img class="rounded-circle" src="{{ url_for('static', filename='img/undraw_profile_1.svg') }}"
                             alt="...">
                         <div class="status-indicator bg-success"></div>
                     </div>
@@ -257,7 +257,7 @@
                 </a>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="static/img/undraw_profile_2.svg"
+                        <img class="rounded-circle" src="{{ url_for('static', filename='img/undraw_profile_2.svg') }}"
                             alt="...">
                         <div class="status-indicator"></div>
                     </div>
@@ -269,7 +269,7 @@
                 </a>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="static/img/undraw_profile_3.svg"
+                        <img class="rounded-circle" src="{{ url_for('static', filename='img/undraw_profile_3.svg') }}"
                             alt="...">
                         <div class="status-indicator bg-warning"></div>
                     </div>
@@ -303,7 +303,7 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                 <img class="img-profile rounded-circle"
-                    src="static/img/undraw_profile.svg">
+                    src="{{ url_for('static', filename='img/undraw_profile.svg') }}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
