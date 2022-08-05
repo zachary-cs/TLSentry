@@ -30,4 +30,4 @@ class MySQL_Connector():
 
     self.cursor.close()
 
-    return row_headers, json.dumps(self.json_data, default=str)
+    return row_headers, self.json_data
