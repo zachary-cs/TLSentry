@@ -15,10 +15,17 @@ certs = Blueprint('certs', __name__) # __name__ is essentially the main() of thi
 def index():
   pagedata = Structs.PageData()
 
+  # Run Query and get results
   db_conn = db_connector.MySQL_Connector()
+  q_headers, q_results = db_conn.Run_Query("select * from certificates")
 
-  q_headers, q_results = db_conn.Run_Query("Select * from certificates")
-
-  return render_template('certs_index.j2', pagedata=pagedata, headers=q_headers, results=q_results)
+  # Render
+  return render_template(
+                          'certs_index.j2', 
+                          pagedata=pagedata, 
+                          sub_title= "Certificates",
+                          headers=q_headers, 
+                          results=q_results
+                        )
 
 

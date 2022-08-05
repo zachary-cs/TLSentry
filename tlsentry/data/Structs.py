@@ -7,7 +7,6 @@ class PageData():
     # Public Static Vars
     app_version = 0.1
     title = "TLSentry - Endpoint SSL Monitoring"
-
     def __init__(self):
         pass
 
