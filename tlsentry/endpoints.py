@@ -36,15 +36,18 @@ def add():
   if request.method == 'POST':
     # TODO
     hostname = request.form['hostname']
-    port = request.form['port']  
+    port = request.form['port']
 
     # Port Checking
-    if port == '':
+    if port == '443':
       port = 443
     
-    scanner = network.SSL_Scanner(hostname, port)
-    scan_result = scanner.Check_Certificate(hostname, port)
-    return f"Submitted, request method = {request.method}, form data = {request.form}"
+    # Create the Scanner and obtain the SSL Certificate
+    scanner = network.Scanner(hostname, port)
+    cert = scanner.Get_Certificate()
+
+    
+    return f"Submitted, request method = {request.method}, form data = {request.form}, cert = {cert}"
   elif request.method == 'GET':
     pagedata = Structs.PageData()
   
