@@ -30,7 +30,15 @@
                         <div class="container-fluid">
 
                             <!-- Page Heading -->
-                            <h1 class="h3 mb-2 text-gray-800">{{ sub_title }}</h1>
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">{{ sub_title }}</h1>
+                                 <a href="{{ url_for('endpoints.add') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa text-white-50"></i>  Add Endpoint
+                            </a>
+                            </div>
+
+                            
+                            <h1 class="h3 mb-2 text-gray-800"></h1>
                             <p class="mb-4">SSL Certificates known to TLSentry</p>
 
                             <!-- DataTales Example -->
