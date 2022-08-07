@@ -29,11 +29,14 @@
                         <!-- Begin Page Content -->
                         <div class="container-fluid">
 
-                            <!-- Page Heading -->
+                            
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <!-- Page Heading -->
                                 <h1 class="h3 mb-0 text-gray-800">{{ sub_title }}</h1>
-                                 <a href="{{ url_for('endpoints.add') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <!-- Actions 
+                                <a href="{{ url_for('endpoints.add') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                 <i class="fas fa-plus fa text-white-50"></i>  Add Endpoint
+                                -->
                             </a>
                             </div>
 
@@ -52,23 +55,19 @@
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                {# 
-                                                   Dynamically put the headers onto the page 
-                                                #}
-                                                {% for h in headers %}
-                                                    <th> {{ h | replace("_"," ") | capitalize }} </th>
-                                                {% endfor %}                                                    
-                                                </tr>
-                                            </thead>                                            
-                                            <tbody>                                            
-                                                {% for res in results %}
-                                                    <tr> 
-                                                    {% for key, val in res.items() %}                                                 
-                                                        <td>{{ val }}</td> 
-                                                    {% endfor %}
-                                                    </tr>    
-                                                {% endfor %}
-                                                                                  
+                                                <form action="{{ url_for('endpoints.add') }}" method="post" >
+                                                    <div class="form-group">
+                                                        <label for="hostname">Hostname</label>
+                                                        <input type="text" class="form-control" id="hostname" name="hostname" placeholder="wikipedia.com">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="port">Port</label>
+                                                        <input type="text" class="form-control" id="port" name="port" placeholder="443" default="443">
+                                                    </div>
+                                                    <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                                    <i class="fas fa-plus fa text-white-50"></i>  Add Endpoint
+                                                    </button>
+                                                </form>                           
                                             </tbody>
                                         </table>
                                     </div>

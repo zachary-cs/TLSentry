@@ -35,8 +35,16 @@ def index():
 def add():
   if request.method == 'POST':
     # TODO
+    hostname = request.form['hostname']
+    port = request.form['port']  
 
-    return ""
+    # Port Checking
+    if port == '':
+      port = 443
+    
+    scanner = network.SSL_Scanner(hostname, port)
+    scan_result = scanner.Check_Certificate(hostname, port)
+    return f"Submitted, request method = {request.method}, form data = {request.form}"
   elif request.method == 'GET':
     pagedata = Structs.PageData()
   
