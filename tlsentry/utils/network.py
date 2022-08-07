@@ -4,15 +4,21 @@ from cryptography.x509.oid import NameOID
 from socket import socket
 from collections import namedtuple
 import idna
+from ..data import Structs
 
 
 
-class SSL_Scanner():    
+class Scanner():    
     
     def __init__(self, hostname, port):
-        self.Endpoint = None
-        self.Certificate = None
-        self.Check_Certificate(hostname, port)
+        # Pull the SSL Cert from the Hostname:Port 
+        self.Certificate = self.Obtain_Certificate(hostname, port)
+
+        # TODO - Pull IP, response time, other info here...
+
+        
+    def Get_Certificate(self):
+        return self.Certificate
         
     def Verify_Cert(self, hostname):
         # verify notAfter/notBefore, CA trusted, servername/sni/hostname
@@ -21,8 +27,10 @@ class SSL_Scanner():
         # issuer
 
 
-    def Check_Certificate(self, hostname, port):
+    def Obtain_Certificate(self, hostname, port):
         idna_hostname = idna.encode(hostname)
+
+        # TODO - Better error handling for bad hostname/ports
 
         # Setup socket connection
         sock = socket()
@@ -43,7 +51,7 @@ class SSL_Scanner():
         sock.close()
 
         # Setup the Certificate Object
-        self.Certificate = Structs.Certificate(
+        certificate = Structs.Certificate(
                                     hostname,
                                     self.Get_Common_Name(crypto_cert), 
                                     peername,
@@ -52,6 +60,10 @@ class SSL_Scanner():
                                     crypto_cert.not_valid_before,
                                     crypto_cert.not_valid_after
                                 )
+        # TODO - return null if missing Cert
+        return certificate
+
+
 
     # Helper Functions
     def Get_Alt_Names(self, cert):
