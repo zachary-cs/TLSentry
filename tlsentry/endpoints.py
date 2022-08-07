@@ -29,3 +29,20 @@ def index():
                           results=q_results
                         )
 
+
+# New endpoint form page
+@endpoints.route("/add", methods=['GET','POST'])
+def add():
+  if request.method == 'POST':
+    # TODO
+
+    return ""
+  elif request.method == 'GET':
+    pagedata = Structs.PageData()
+  
+    # Render
+    return render_template(
+                            'endpoints_add.j2', 
+                            pagedata=pagedata, 
+                            sub_title="Add an Endpoint"
+                          )

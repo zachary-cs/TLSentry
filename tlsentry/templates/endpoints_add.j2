@@ -1,0 +1,104 @@
+{# 
+   Extends from sidebar, which inherits base_parent
+#}
+{% extends "child_navbars.j2" %}
+
+
+{# Title from parent template relaced by this child one#}
+{% block title %}
+    {{ pagedata.title }}
+{% endblock title %}
+
+{# replacing base_parent child-body #}
+{% block child_body %}    
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                 <!-- Content Wrapper -->
+                <div id="content-wrapper" class="d-flex flex-column">
+
+                    <!-- Main Content -->
+                    <div id="content">
+
+                        
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">{{ sub_title }}</h1>
+                                 <a href="{{ url_for('endpoints.add') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                <i class="fas fa-plus fa text-white-50"></i>  Add Endpoint
+                            </a>
+                            </div>
+
+                            
+                            <h1 class="h3 mb-2 text-gray-800"></h1>
+                            <p class="mb-4">SSL Certificates known to TLSentry</p>
+
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ table_title }}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                          
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                {# 
+                                                   Dynamically put the headers onto the page 
+                                                #}
+                                                {% for h in headers %}
+                                                    <th> {{ h | replace("_"," ") | capitalize }} </th>
+                                                {% endfor %}                                                    
+                                                </tr>
+                                            </thead>                                            
+                                            <tbody>                                            
+                                                {% for res in results %}
+                                                    <tr> 
+                                                    {% for key, val in res.items() %}                                                 
+                                                        <td>{{ val }}</td> 
+                                                    {% endfor %}
+                                                    </tr>    
+                                                {% endfor %}
+                                                                                  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- End of Main Content -->
+                </div>
+                <!-- End of Content Wrapper -->
+
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+{% endblock child_body %}
+    
+
+ {% block custom_scripts %}    
+ <!-- Page level plugins -->
+    <script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ url_for('static', filename='js/datatables-activate.js') }}"></script>
+{% endblock custom_scripts %}
