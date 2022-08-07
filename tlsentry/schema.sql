@@ -14,7 +14,7 @@ CREATE TABLE tlsentry.certificates (
 )
 
 CREATE TABLE tlsentry.endpoints (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INT auto_increment NOT NULL,
   hostname varchar(100) NOT NULL,
   ip_addr varchar(100) NOT NULL,
   port INT NOT NULL,
