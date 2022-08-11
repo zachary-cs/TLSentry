@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import Blueprint
+import datetime
 from .utils import network
 from .utils import db_connector
 from .data import Structs
@@ -33,23 +34,53 @@ def index():
 # New endpoint form page
 @endpoints.route("/add", methods=['GET','POST'])
 def add():
+  pagedata = Structs.PageData()
+  # Posted form from /add page
   if request.method == 'POST':
     # TODO
     hostname = request.form['hostname']
     port = request.form['port']
 
     # Port Checking
-    if port == '443':
+    if port == '':
       port = 443
-    
+    else:
+      port = int(port)
+
     # Create the Scanner and obtain the SSL Certificate
     scanner = network.Scanner(hostname, port)
     cert = scanner.Get_Certificate()
 
-    
-    return f"Submitted, request method = {request.method}, form data = {request.form}, cert = {cert}"
+    if cert is None:
+      return "Certificate not found!"
+
+    # Gather details for Endpoint
+    Peer_IP = cert.GetDict()['Peer Name'][0]
+    Datetime_Now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+    # Open DB Connection
+    db_conn = db_connector.MySQL_Connector()
+
+    # Check if the Certificate Exists
+    q_headers, q_results = db_conn.Run_Query(f"select * from certificates where common_name = '{cert.Hostname}'")
+
+    if len(q_results) >= 1:
+      # Cert already in store, get it's id
+      cert_id = q_results[0]["id"]
+
+    # Return Test Page - DEBUGGING
+    return f"Submitted, <br><br> request method = {request.method},<br><br> form data = {request.form}, <br><br> cert = {cert.GetDict()},<br><br> cert_db = {q_results}, <br><br> Peer IP =  "
+
+    # Create the Endpoint record
+    q_headers, q_results = db_conn.Run_Query(f"insert into endpoints values ( {hostname},{cert.PeerName[0]},{port},NULL )")
+
+    # Return user to endpoints index, and highlight the new endpoint
+    return render_template(
+                            'endpoints_index.j2', 
+                            pagedata=pagedata, 
+                            sub_title="Add an Endpoint"
+                          ) 
   elif request.method == 'GET':
-    pagedata = Structs.PageData()
   
     # Render
     return render_template(
