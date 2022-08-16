@@ -5,7 +5,6 @@ from flask import Blueprint
 from cryptography.hazmat.primitives import hashes
 import datetime
 from .utils import network
-from .utils import db_connector
 from .data import Structs
 
 
