@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import Blueprint
+from cryptography.hazmat.primitives import hashes
 import datetime
 from .utils import network
 from .utils import db_connector
@@ -49,13 +50,16 @@ def add():
 
     # Create the Scanner and obtain the SSL Certificate
     scanner = network.Scanner(hostname, port)
-    cert = scanner.Get_Certificate()
+    cert = scanner.Certificate
+    return scanner.Crypto_Cert.toStr()
+
 
     if cert is None:
       return "Certificate not found!"
 
     # Gather details for Endpoint
-    Peer_IP = cert.GetDict()['Peer Name'][0]
+    Peer_Name = cert.GetDict()['Peer Name'][0]
+
     Datetime_Now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
     # Open DB Connection
@@ -67,7 +71,15 @@ def add():
     if len(q_results) >= 1:
       # Cert already in store, get it's id
       cert_id = q_results[0]["id"]
+    else:
+      # Certificate does not exist, insert it and get the ID
+      query = f"INSERT INTO tlsentry.certificates \
+                (common_name, peer_name, alt_names, issuer, not_before, not_after, thumbprint) \
+                VALUES \
+                ('{cert.CommonName}', '{Peer_Name}', 'None', '{cert.Issuer}', '{cert.NotBefore}', '{cert.NotAfter}', 'TEESDFSKLJDFhKLSDJgfsajdf');"
+      q_headers, q_results = db_conn.Run_Query(query)
 
+    
     # Return Test Page - DEBUGGING
     return f"Submitted, <br><br> request method = {request.method},<br><br> form data = {request.form}, <br><br> cert = {cert.GetDict()},<br><br> cert_db = {q_results}, <br><br> Peer IP =  "
 

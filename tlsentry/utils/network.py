@@ -4,6 +4,7 @@ from cryptography.x509.oid import NameOID
 from socket import socket
 from collections import namedtuple
 import idna
+import hashlib
 from ..data import Structs
 
 
@@ -13,7 +14,7 @@ class Scanner():
     def __init__(self, hostname, port):
         # Pull the SSL Cert from the Hostname:Port 
         self.Certificate = self.Obtain_Certificate(hostname, port)
-
+        self.Crypto_Cert = self.Obtain_Crypto_Certificate(hostname, port)
         # TODO - Pull IP, response time, other info here...
 
         
@@ -58,12 +59,36 @@ class Scanner():
                                     self.Get_Alt_Names(crypto_cert),
                                     self.Get_Issuer(crypto_cert),
                                     crypto_cert.not_valid_before,
-                                    crypto_cert.not_valid_after
+                                    crypto_cert.not_valid_after,
+                                    hashlib.sha1()
                                 )
         # TODO - return null if missing Cert
         return certificate
 
+    def Obtain_Crypto_Certificate(self, hostname, port):
+        idna_hostname = idna.encode(hostname)
 
+        # TODO - Better error handling for bad hostname/ports
+
+        # Setup socket connection
+        sock = socket()
+        sock.connect((hostname, port))
+        peername = sock.getpeername()
+        ctx = SSL.Context(SSL.SSLv23_METHOD)
+        ctx.check_hostname = False
+        ctx.verify_mode = SSL.VERIFY_NONE
+        # Do Handshake and acquire Cert
+        sock_ssl = SSL.Connection(ctx, sock)
+        sock_ssl.set_connect_state()
+        sock_ssl.set_tlsext_host_name(idna_hostname)
+        sock_ssl.do_handshake()
+        cert = sock_ssl.get_peer_certificate()
+        crypto_cert = cert.to_cryptography()
+        # Close down
+        sock_ssl.close()
+        sock.close()
+
+        return cert
 
     # Helper Functions
     def Get_Alt_Names(self, cert):
