@@ -12,7 +12,7 @@ class PageData():
 
 class Certificate():
 
-    def __init__(self, hostname, commonname, peername, san, issuer, notbefore, notafter, thumbprint):
+    def __init__(self, hostname, commonname, peername, san, issuer, notbefore, notafter, thumbprint="TESTTHUMBPRINT"):
         self.Hostname = hostname
         self.CommonName = commonname
         self.PeerName = peername
