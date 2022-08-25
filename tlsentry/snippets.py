@@ -4,6 +4,7 @@ from flask import request
 from flask import Blueprint
 from .utils import network
 from .data import Structs
+import json
 
 
 # Define this python file as the blueprint 
@@ -20,6 +21,17 @@ def hello(name):
 
 
 # ======================== Code Testing =========================
+
+@snips.route("/cert")
+def cert_get():
+  scanner = network.Scanner("google.com", 443)
+  cert = scanner.Certificate
+  return json.dumps(
+                      {
+                        "Test" : 50, 
+                        "Test2": 100                        
+                      }
+                    )
 
 
 # Testing out returning JSON from a URL
