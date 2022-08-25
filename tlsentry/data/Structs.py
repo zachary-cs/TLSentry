@@ -38,9 +38,17 @@ class Certificate():
 # Object to encapsulate the endpoint
 class Endpoint():
 
-    def __init__(self, url, port):
+    def __init__(self, url, port, ip):
         self.URL = url
         self.Port = port
+        self.IP = ip
+    
+    def GetDict(self):
+        return {
+            "URL": self.URL,
+            "Port": self.Port,
+            "IP": self.IP
+        }
 
 # Put Variables that won't change here
 class Statics():
