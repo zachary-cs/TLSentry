@@ -2,7 +2,6 @@ from OpenSSL import SSL
 from cryptography import x509
 from cryptography.x509.oid import NameOID
 from socket import socket
-from collections import namedtuple
 import idna
 import hashlib
 from ..data import Structs
@@ -11,20 +10,14 @@ from ..data import Structs
 
 class Scanner():   
 
-
-    
     def __init__(self, hostname, port):
 
-        # Public
+        # Public Vars
         self.Certificate = None
         self.Endpoint = None
 
         # Pull the SSL Cert from the Hostname:Port
         self.ScanHost(hostname, port)
-        self.Crypto_Cert = self.Do_Scan(hostname, port)
-
-        # TODO - Pull IP, response time, other info here...
-
 
     def ScanHost(self, hostname, port):
         idna_hostname = idna.encode(hostname)
@@ -62,10 +55,15 @@ class Scanner():
                                     self.Get_Alt_Names(crypto_cert),
                                     self.Get_Issuer(crypto_cert),
                                     crypto_cert.not_valid_before,
-                                    crypto_cert.not_valid_after
+                                    crypto_cert.not_valid_after,
+                                    crypto_cert.fingerprint
                                 )
         # Setup the Endpoint Object
-        self.Endpoint = Structs.Endpoint(url, port)
+        self.Endpoint = Structs.Endpoint(hostname, port, peername[0])
+
+        # Save obtained cert objects
+        self.Cert = cert
+        self.CryptoCert = crypto_cert
 
     # Helper Functions        
     def Get_Certificate(self):
