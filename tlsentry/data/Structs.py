@@ -12,7 +12,7 @@ class PageData():
 
 class Certificate():
 
-    def __init__(self, hostname, commonname, peername, san, issuer, notbefore, notafter, thumbprint="TESTTHUMBPRINT"):
+    def __init__(self, hostname, commonname, peername, san, issuer, notbefore, notafter, fingerprint="TESTTHUMBPRINT"):
         self.Hostname = hostname
         self.CommonName = commonname
         self.PeerName = peername
@@ -20,7 +20,7 @@ class Certificate():
         self.Issuer = issuer
         self.NotBefore = notbefore
         self.NotAfter = notafter
-        self.Thumbprint = thumbprint
+        self.Fingerprint = fingerprint
 
     def GetDict(self):
         return {
@@ -31,7 +31,7 @@ class Certificate():
             "Issuer" : self.Issuer,
             "Not Valid Before": str(self.NotBefore),
             "Not Valid After": str(self.NotAfter),
-            "Thumbprint": self.Thumbprint
+            "Fingerprint": self.Fingerprint
         }
 
 

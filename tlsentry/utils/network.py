@@ -1,6 +1,7 @@
 from OpenSSL import SSL
 from cryptography import x509
 from cryptography.x509.oid import NameOID
+from cryptography.hazmat.primitives import serialization
 from socket import socket
 import idna
 import hashlib
@@ -15,6 +16,7 @@ class Scanner():
         # Public Vars
         self.Certificate = None
         self.Endpoint = None
+        self.PEM_Cert = None
 
         # Pull the SSL Cert from the Hostname:Port
         self.ScanHost(hostname, port)
@@ -47,6 +49,18 @@ class Scanner():
             sock_ssl.close()
             sock.close()
 
+        
+        # Save obtained cert objects
+        self.Cert = cert
+        self.CryptoCert = crypto_cert
+        self.PEM_Cert = crypto_cert.public_bytes(serialization.Encoding.PEM).decode()
+
+        # Generate the Fingerprint of the Certificate
+        PEM_Data = self.PEM_Cert.replace("-----BEGIN CERTIFICATE-----\n","")
+        PEM_Data = PEM_Data.replace("-----END CERTIFICATE-----\n","")
+        PEM_Data = PEM_Data.replace("\n","")
+        fingerprint = hashlib.sha1(self.PEM_Cert.encode('utf-8')).hexdigest() 
+
         # Setup the Certificate Object
         self.Certificate = Structs.Certificate(
                                     hostname,
@@ -56,14 +70,11 @@ class Scanner():
                                     self.Get_Issuer(crypto_cert),
                                     crypto_cert.not_valid_before,
                                     crypto_cert.not_valid_after,
-                                    crypto_cert.fingerprint
+                                    fingerprint
                                 )
         # Setup the Endpoint Object
         self.Endpoint = Structs.Endpoint(hostname, port, peername[0])
 
-        # Save obtained cert objects
-        self.Cert = cert
-        self.CryptoCert = crypto_cert
 
     # Helper Functions        
     def Get_Certificate(self):

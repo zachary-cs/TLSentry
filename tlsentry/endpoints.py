@@ -51,8 +51,6 @@ def add():
     # Create the Scanner and obtain the SSL Certificate
     scanner = network.Scanner(hostname, port)
     cert = scanner.Certificate
-    return scanner.Crypto_Cert.toStr()
-
 
     if cert is None:
       return "Certificate not found!"

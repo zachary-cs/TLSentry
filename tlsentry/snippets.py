@@ -5,7 +5,7 @@ from flask import Blueprint
 from .utils import network
 from .data import Structs
 import json
-
+import hashlib
 
 # Define this python file as the blueprint 
 snips = Blueprint('snips', __name__) # __name__ is essentially the main() of this python file
@@ -29,7 +29,26 @@ def cert_get():
   return json.dumps(
                       {
                         "Test" : 50, 
-                        "Test2": 100                        
+                        "Test2": 100,
+                        "Cert" : cert.GetDict(),
+                        "Endpoint" : scanner.Endpoint.GetDict()                    
+                      }
+                    )
+
+@snips.route("/thumb")
+def thumb():
+  scanner = network.Scanner("google.com", 443)
+  cert = scanner.Cert
+  crypto_cert = scanner.CryptoCert
+  certificate = scanner.Certificate
+  return json.dumps(
+                      {
+                        # "Thumbprint" : certificate.Thumbprint
+                        # "Cert" : dir(cert),
+                        "Crypto_Cert" : dir(crypto_cert),
+                        "PEM" : scanner.PEM_Cert,
+                        "SHA1 Fingerprint" : certificate.Fingerprint
+                        # "Bytes" : cert.public_bytes("utf")
                       }
                     )
 
